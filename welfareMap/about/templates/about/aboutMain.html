@@ -1,0 +1,15 @@
+{% extends 'main/main.html' %}
+{% block content %}
+<nav>
+  <ul>
+    <li><a href={% url 'about:idea' %}>理念</a></li>
+    <li><a href={% url 'about:introduction' %}>簡介</a></li>
+    <li><a href={% url 'about:use' %}>使用介紹</a></li>
+    <li><a href={% url 'about:aboutUs' %}>關於我們</a></li>
+  </ul>
+</nav>
+
+{% block about %}
+{% endblock %}
+
+{% endblock %}
