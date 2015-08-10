@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'main',
     'about',
     'userLogin',
+    'member',
 )
 
 MIDDLEWARE_CLASSES = (

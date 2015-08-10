@@ -13,10 +13,11 @@
     <li><a href={% url 'about:about' %}>會員專區</a></li>
     <li><a href={% url 'about:about' %}>統計資料</a></li>
     {% if user.get_username %}
-    <li><a href="{% url 'userLogin:userLogout' %}">登出({{user.get_username}})</a></li>
-  {% else %}
-    <li><a href="{% url 'userLogin:userLogin' %}">登入</a></li>
-  {% endif %}
+      <li><a href="{% url 'userLogin:userLogout' %}">登出({{user.get_username}})</a></li>
+    {% else %}
+      <li><a href="{% url 'member:register' %}">註冊</a></li>
+      <li><a href="{% url 'userLogin:userLogin' %}">登入</a></li>
+    {% endif %}
   </ul>
 </nav>
 <div id=content >
