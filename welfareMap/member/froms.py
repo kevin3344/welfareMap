@@ -4,13 +4,14 @@ from django import forms
 
 class UserForm(forms.ModelForm):
     username = forms.CharField(label='帳號')
-    password = forms.CharField(label='密碼')
-    password2 = forms.CharField(label='確認密碼')
+    password = forms.CharField(label='密碼', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='確認密碼', widget=forms.PasswordInput)
     first_name = forms.CharField(label='暱稱')
+    
     
     class Meta:
         model = User
-        fields = ['username', 'password', 'password2', 'first_name']
+        fields = ('username', 'password', 'password2', 'first_name')
     
     def clean_password2(self):
         password = self.cleaned_data.get('password')

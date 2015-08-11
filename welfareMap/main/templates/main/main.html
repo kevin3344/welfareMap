@@ -8,9 +8,9 @@
 <nav>
   <ul>
     <li><a href={% url 'about:about' %}>關於公益地圖</a></li>
-    <li><a href={% url 'about:about' %}>呼叫公益超人</a></li>
+    <li><a href={% url 'welfare:welfare' %}>呼叫公益超人</a></li>
     <li><a href={% url 'about:about' %}>我要當公益超人</a></li>
-    <li><a href={% url 'about:about' %}>會員專區</a></li>
+    <li><a href={% url 'member:member' %}>會員專區</a></li>
     <li><a href={% url 'about:about' %}>統計資料</a></li>
     {% if user.get_username %}
       <li><a href="{% url 'userLogin:userLogout' %}">登出({{user.get_username}})</a></li>
@@ -33,5 +33,10 @@
 main.html
 {% endblock %}
 </div>
+
+<script src=https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+{% block script %}
+{% endblock %}
 </body>
 </html>

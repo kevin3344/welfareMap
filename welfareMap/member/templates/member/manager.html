@@ -1,14 +1,12 @@
-{% extends "main/main.html" %}
-{% block content %}
+{% extends 'member/member.html' %}
+{% block member %}
 {% if userForm %}
-  <form method=post action={% url 'member:register' %}>
+  <form method=post action={% url 'member:manager' %}>
     {% csrf_token %}
     {% for field in userForm %}      
       <p>{{field.label_tag}}{{field}}{{field.errors}}</p>
     {% endfor %}
-    <input type=submit value=送出>
+    <input type=submit value=修改>
   </form>
 {% endif %}
-
-
 {% endblock %}

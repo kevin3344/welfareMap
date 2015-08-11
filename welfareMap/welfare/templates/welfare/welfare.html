@@ -1,0 +1,67 @@
+{% extends "main/main.html" %}
+{% block content %}
+
+{% if welfareForm %}
+  <form method=post action={% url 'welfare:welfare' %}>
+    {% csrf_token %}
+    {% for field in welfareForm %}      
+      <p>{{field.label_tag}}{{field}}{{field.errors}}</p>
+    {% endfor %}
+    <input type=submit value=送出>
+  </form>
+{% endif %}
+
+{% if welfare %}
+  {{welfare.address}}<br>
+  {{welfare.helpType}}
+{% endif %}
+<div id=map_canvas style='width:600px; height:600px;'></div>
+{% endblock %}
+
+{% block script %}
+<script>
+
+
+var lat = '{{welfare.lat}}';
+var lng = '{{welfare.lng}}';
+
+
+
+  var infowindow = new google.maps.InfoWindow();  
+  var geocoder = new google.maps.Geocoder();
+  var center = new google.maps.LatLng(lat, lng);  
+			
+  //設定地圖參數
+  var mapOptions = {
+      zoom: 15, //初始放大倍數
+      center: center, //中心點所在位置
+      mapTypeId: google.maps.MapTypeId.ROADMAP //正常2D道路模式
+  };
+  //在指定DOM元素中嵌入地圖
+  var map = new google.maps.Map(
+      document.getElementById("map_canvas"), mapOptions);
+  //加入標示點(Marker)
+
+  var marker = new google.maps.Marker({
+        position: center, //經緯度
+        title: "f", //顯示文字
+        map: map, //指定要放置的地圖對象
+        icon: 'http://housing.nfu.edu.tw/img/home.png' ,    
+        
+  });						
+  var infowindow = new google.maps.InfoWindow();																																																																																																																																																																															
+           
+  google.maps.event.addListener(marker, 'click', (function(marker, i) {
+	 return function() {
+     infowindow.setContent('內容：{{welfare.content}}<hr>備註：{{welfare.note}}<br>');
+	 infowindow.open(map, marker);
+	 }
+  })(marker, 1));
+　        
+
+</script>
+
+{% endblock %}
+
+
+

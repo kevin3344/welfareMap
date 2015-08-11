@@ -1,0 +1,14 @@
+{% extends 'main/main.html' %}
+{% block content %}
+<nav>
+  <ul>
+    <li><a href={% url 'member:manager' %}>會員資料管理</a></li>
+    <li><a href={% url 'member:manager' %}>呼救超人次數</a></li>
+    <li><a href={% url 'member:manager' %}>當超人次數</a></li>
+  </ul>
+</nav>
+
+{% block member %}
+{% endblock %}
+
+{% endblock %}

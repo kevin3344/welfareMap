@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'about',
     'userLogin',
     'member',
+    'welfare',
 )
 
 MIDDLEWARE_CLASSES = (
