@@ -30,7 +30,7 @@ def welfare(request, index=''):
     welfare = welfareForm.save(commit=False)
     welfare.user = request.user
     
-    url = 'http://maps.googleapis.com/maps/api/geocode/json?address='+quote(welfare.address)+'&sensor=false&language=zh-tw'
+    url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+quote(welfare.address)+'&sensor=false&language=zh-tw'
     content = urlopen(url).read().decode('utf-8')
     jsonMessage = json.loads(content)
     location = jsonMessage['results'][0]['geometry']['location']
