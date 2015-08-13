@@ -1,0 +1,30 @@
+{% extends "supply/supplyMain.html" %}
+{% block supply %}
+<p>共有{{ welfares|length }}求助</p>
+<table>
+	<tr>
+		<th>呼叫者</th>
+		<th>緊急程度</th>
+		<th>種類</th>
+		<th>內容</th>
+		<th>地址</th>
+		<th>備註</th>
+	</tr>
+	{% for welfare in welfares %}
+		<tr>
+			<td> {{ welfare.user }} </td>
+        	<td> {{ welfare.urgent }} </td>
+        	<td> {{ welfare.helpType }} </td>
+        	<td> {{ welfare.content }} </td>
+        	<td> {{ welfare.address }} </td>
+        	<td> {{ welfare.note }} </td>
+        	<td> <form method=post action={% url 'supply:supplyMap'  %}>
+			  	 {% csrf_token %}
+			  	 <input type=hidden name=id value="+idsStr[i]+">
+			  	 <button type= submit >我要幫助!</button>
+			  	 </form></td>
+		</tr>
+	{% endfor %}
+</table>
+
+{% endblock %}

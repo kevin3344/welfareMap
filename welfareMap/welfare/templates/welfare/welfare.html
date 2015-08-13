@@ -12,8 +12,9 @@
 {% endif %}
 
 {% if welfare %}
-  {{welfare.address}}<br>
-  {{welfare.helpType}}
+  <p>地址：{{welfare.address}}</p>
+  <p>內容：{{welfare.content}}</p>
+  <p>備註：{{welfare.note}}</p>
 {% endif %}
 <div id=map_canvas style='width:600px; height:600px;'></div>
 {% endblock %}

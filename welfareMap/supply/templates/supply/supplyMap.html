@@ -1,0 +1,106 @@
+{% extends "supply/supplyMain.html" %}
+{% block supply %}
+	<div style = "display:none">
+	{% for welfares in welfares %}
+		<div class=address>
+		{{welfares.address}}
+		</div>
+		<div class=content>
+		{{welfares.content}}
+		</div>
+		<div class=note>
+		{{welfares.note}}
+		</div>
+		<div class=latitude>
+		{{welfares.lat}}
+		</div>
+		<div class=longitude>
+		{{welfares.lng}}
+		</div>
+		<div class=id>
+		{{welfares.id}}
+		</div>
+		{% endfor %}
+	</div>
+	<div id=map_canvas style='width:600px; height:600px;'></div>
+{% endblock %}
+{% block script %}
+
+<script>
+
+var latitude = $('.latitude');
+var longitude = $('.longitude');
+var address = $('.address');
+var content = $('.content');
+var note = $('.note');
+var ids = $('.id');
+var latlng=[ ];
+var addressStr=[ ];
+var latitudeStr=[ ];
+var longitudeStr=[ ];
+var contentStr=[ ];
+var noteStr=[ ];
+var idsStr=[ ];
+
+for (var i=0;i<latitude.length;i++){
+       addressStr[i]=address[i].innerHTML;
+       latitudeStr[i]=latitude[i].innerHTML;
+       longitudeStr[i]=longitude[i].innerHTML;
+       contentStr[i]=content[i].innerHTML;
+       noteStr[i]=note[i].innerHTML;
+       idsStr[i]=ids[i].innerHTML;
+}
+console.log(noteStr)
+
+  var infowindow = new google.maps.InfoWindow();  
+  var geocoder = new google.maps.Geocoder();
+  var center = new google.maps.LatLng(23.5, 121);  
+
+			
+  //設定地圖參數
+  var mapOptions = {
+      zoom: 8, //初始放大倍數
+      center: center, //中心點所在位置
+      mapTypeId: google.maps.MapTypeId.ROADMAP //正常2D道路模式
+  };
+  //在指定DOM元素中嵌入地圖
+  var map = new google.maps.Map(
+      document.getElementById("map_canvas"), mapOptions);
+  //加入標示點(Marker)
+
+  var marker = new google.maps.Marker({
+        position: center, //經緯度
+        title: "f", //顯示文字
+        map: map, //指定要放置的地圖對象
+        icon: 'http://housing.nfu.edu.tw/img/home.png' ,    
+        
+  });						
+              var infowindow = new google.maps.InfoWindow();																																																																																																																																																																															
+            for (i=0; i<=latitude.length; i++) {
+　　      	latlng [i] = new google.maps.LatLng( latitudeStr[i],longitudeStr[i]);
+　　      	var marker = new google.maps.Marker({
+                   position: latlng[i], //經緯度
+                   title: "", //顯示文字
+                   map: map, //指定要放置的地圖對象
+                   icon: 'http://housing.nfu.edu.tw/img/home.png' ,    
+              });
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			return function() {
+			  infowindow.setContent("內容：" +contentStr[i]+"<hr>"+
+			  						"備註：" +noteStr[i]+"<hr>"+
+			  						"地址：" +addressStr[i]+
+			  						"<form method=post action={% url 'supply:supplyMap'  %}>"+
+			  						"{% csrf_token %}"+
+			  						"<input type=hidden name=id value="+idsStr[i]+">"+
+			  						"<button type= submit >我要幫助!</button>"+
+			  						"</form>");
+			  infowindow.open(map, marker);
+			}
+			})(marker, i));
+　        };
+
+</script>
+{% endblock %}
+
+
+

@@ -1,0 +1,29 @@
+{% extends "main/main.html" %}
+{% block content %}
+<nav>
+  <ul>
+    <li><a href={% url 'supply:supplyMap' %}>地圖</a></li>
+    <li><a href={% url 'supply:supplyList' %}>表單</a></li>
+  </ul>
+</nav>
+
+<form method="get">
+    <p>地址：<input type="text" name="address"></p>
+    <p>緊急程度：<select name="urgent">
+    	<option value="">不限</option>
+    	<option value="普通">普通</option>
+    	<option value="困難">困難</option>
+    	<option value="緊急">緊急</option>
+    </select></p> 
+    <p>求救類型：<select name="helpType">
+    	<option value="">不限</option>
+    	<option value="勞力">勞力</option>
+    	<option value="智力">智力</option>
+    	<option value="金錢">金錢</option>
+    </select></p> 
+    <input type=submit value=查詢>
+</form>
+{% block supply %}
+
+{% endblock %}
+{% endblock %}

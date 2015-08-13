@@ -1,14 +1,24 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect
 
 from member.froms import UserForm
-from django.contrib.auth.decorators import login_required
+from welfare.models import Welfare
 
 
 # Create your views here.
 def member(request):
     return render(request, 'member/member.html')
+@login_required
+def welfareNum(request):
+    welfares = Welfare.objects.filter(user=request.user)
+    return render(request, 'member/welfareNum.html', {'welfares':welfares})
+
+@login_required
+def supplyNum(request):
+    welfares = Welfare.objects.filter(helpUser=request.user)
+    return render(request, 'member/supplyNum.html', {'welfares':welfares})
 
 @login_required
 def manager(request):

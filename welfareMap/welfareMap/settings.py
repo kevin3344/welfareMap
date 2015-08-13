@@ -24,7 +24,8 @@ SECRET_KEY = 'uzd+y-d5c77z@__^t)b+(g_m0uc4#9*otx+i3rn69b8qr*)xzh'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+if 'DYNO' in os.environ:   # Running on Heroku
+    DEBUG = False
 ALLOWED_HOSTS = ['*']
 
 
@@ -42,6 +43,7 @@ INSTALLED_APPS = (
     'userLogin',
     'member',
     'welfare',
+    'supply',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -78,18 +80,25 @@ WSGI_APPLICATION = 'welfareMap.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'welfareMapDB',
-        'USER': 'welfareMap',
-        'PASSWORD': 'welfareMap',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEBUG==True:   # Running on the development environment
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'welfareMapDB',
+            'USER': 'welfareMap',
+            'PASSWORD': 'welfareMap',
+            'HOST': 'localhost',
+            'PORT': '',
+        }
     }
-}
 
+else:   # Running on Heroku
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES = {'default':dj_database_url.config()}
+    # Honor the 'X-Forwarded-Proto' header for request.is_secure()
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Internationalization
@@ -110,4 +119,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+if DEBUG==False:   # Running on Heroku
+    STATIC_ROOT = 'staticfiles'
 LOGIN_URL = '/userLogin/'

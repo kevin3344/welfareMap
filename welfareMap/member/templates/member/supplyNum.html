@@ -1,0 +1,24 @@
+{% extends 'member/memberMain.html' %}
+{% block member %}
+<p>{{user.get_username}},您一共幫助{{ welfares|length }}次</p>
+<table>
+	<tr>
+		<td>求助人</td>
+		<td>緊急程度</td>
+		<td>種類</td>
+		<td>內容</td>
+		<td>地址</td>
+		<td>備註</td>
+	</tr>
+	{% for welfare in welfares %}
+		<tr>
+			<td> {{ welfare.user.username }} </td>
+        	<td> {{ welfare.urgent }} </td>
+        	<td> {{ welfare.helpType }} </td>
+        	<td> {{ welfare.content }} </td>
+        	<td> {{ welfare.address }} </td>
+        	<td> {{ welfare.note }} </td>
+		</tr>
+	{% endfor %}
+</table>
+{% endblock %}
