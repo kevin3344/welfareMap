@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
@@ -27,7 +28,15 @@ def search(request):
 def supplyMap(request):
     if request.method == 'GET':
         welfares = search(request)
-        return render(request, 'supply/supplyMap.html', {'welfares':welfares})
+        zoom = 8
+        wid = request.GET.get('id')
+        try:
+            welfare = Welfare.objects.get(id=wid)
+        except:
+            return render(request, 'supply/supplyMap.html', {'welfares':welfares, 'zoom':zoom})
+        
+        zoom = 16
+        return render(request, 'supply/supplyMap.html', {'welfares':welfares, 'welfare':welfare, 'zoom':zoom})
     #post
     id = request.POST.get('id')
     welfare = Welfare.objects.get(id = id)

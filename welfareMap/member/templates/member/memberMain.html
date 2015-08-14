@@ -1,14 +1,17 @@
 {% extends 'main/main.html' %}
 {% block content %}
-<nav>
+<div id="sidebar">
   <ul>
     <li><a href={% url 'member:manager' %}>會員資料管理</a></li>
     <li><a href={% url 'member:welfareNum' %}>呼救超人紀錄</a></li>
     <li><a href={% url 'member:supplyNum' %}>當超人紀錄</a></li>
   </ul>
-</nav>
+</div>
+
+<div id="content">
 
 {% block member %}
 {% endblock %}
 
+</div>
 {% endblock %}

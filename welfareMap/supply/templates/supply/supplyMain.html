@@ -1,11 +1,6 @@
 {% extends "main/main.html" %}
 {% block content %}
-<nav>
-  <ul>
-    <li><a href={% url 'supply:supplyMap' %}>地圖</a></li>
-    <li><a href={% url 'supply:supplyList' %}>表單</a></li>
-  </ul>
-</nav>
+
 
 <form method="get">
     <p>地址：<input type="text" name="address"></p>
@@ -26,4 +21,5 @@
 {% block supply %}
 
 {% endblock %}
+
 {% endblock %}

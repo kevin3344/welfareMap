@@ -1,6 +1,6 @@
 {% extends "main/main.html" %}
 {% block content %}
-
+<div id="content2">
 {% if welfareForm %}
   <form method=post action={% url 'welfare:welfare' %}>
     {% csrf_token %}
@@ -16,10 +16,12 @@
   <p>內容：{{welfare.content}}</p>
   <p>備註：{{welfare.note}}</p>
 {% endif %}
-<div id=map_canvas style='width:600px; height:600px;'></div>
+<div id=map_canvas></div>
+</div>
 {% endblock %}
 
 {% block script %}
+{% if welfare %}
 <script>
 
 
@@ -34,7 +36,7 @@ var lng = '{{welfare.lng}}';
 			
   //設定地圖參數
   var mapOptions = {
-      zoom: 15, //初始放大倍數
+      zoom: 8, //初始放大倍數
       center: center, //中心點所在位置
       mapTypeId: google.maps.MapTypeId.ROADMAP //正常2D道路模式
   };
@@ -61,7 +63,7 @@ var lng = '{{welfare.lng}}';
 　        
 
 </script>
-
+{% endif %}
 {% endblock %}
 
 

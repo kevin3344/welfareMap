@@ -1,27 +1,34 @@
+{% load staticfiles %}
 <html>
 <head>
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel=stylesheet type="text/css" href="{% static 'main/css/style.css' %}">
 </head>
-
 <body>
+<div id="header"><div id="header2">
+          <div id="logo">
+              <h1><a href="#">BlueWave</a></h1>
+              <p id="subtitle">Template designed by WebTemplateOcean.com</p>
+          </div> 
+	<div id="menu">
+				<ul>
+		    <li><a href={% url 'about:about' %}>關於公益地圖</a></li>
+		    <li><a href={% url 'welfare:welfare' %}>呼叫公益超人</a></li>
+		    <li><a href={% url 'supply:supplyMap' %}>我要當公益超人</a></li>
+		    <li><a href={% url 'member:member' %}>會員專區</a></li>
+		    <li><a href={% url 'about:about' %}>統計資料</a></li>
+		    {% if user.get_username %}
+		      <li><a href="{% url 'userLogin:userLogout' %}">登出({{user.get_username}})</a></li>
+		    {% else %}
+		      <li><a href="{% url 'member:register' %}">註冊</a></li>
+		      <li><a href="{% url 'userLogin:userLogin' %}">登入</a></li>
+		    {% endif %}
+				</ul>
+	</div>
+</div></div><!-- header --><!-- header2 -->
 
-<nav>
-  <ul>
-    <li><a href={% url 'about:about' %}>關於公益地圖</a></li>
-    <li><a href={% url 'welfare:welfare' %}>呼叫公益超人</a></li>
-    <li><a href={% url 'supply:supplyMap' %}>我要當公益超人</a></li>
-    <li><a href={% url 'member:member' %}>會員專區</a></li>
-    <li><a href={% url 'about:about' %}>統計資料</a></li>
-    {% if user.get_username %}
-      <li><a href="{% url 'userLogin:userLogout' %}">登出({{user.get_username}})</a></li>
-    {% else %}
-      <li><a href="{% url 'member:register' %}">註冊</a></li>
-      <li><a href="{% url 'userLogin:userLogin' %}">登入</a></li>
-    {% endif %}
-  </ul>
-</nav>
-<div id=content >
-
+<div id="main"><div id="main2">            
+            
 {% if messages %}
   {% for message in messages %}
     {{message}}
@@ -32,7 +39,10 @@
 {% block content %}
 main.html
 {% endblock %}
-</div>
+<div class="clearing">&nbsp;</div> 
+
+</div></div><!-- main --><!-- main2 -->
+
 
 <script src=https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>

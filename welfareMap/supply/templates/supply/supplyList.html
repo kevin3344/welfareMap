@@ -1,6 +1,7 @@
-{% extends "supply/supplyMain.html" %}
+{% extends "main/main.html" %}
 {% block supply %}
 <p>共有{{ welfares|length }}求助</p>
+
 <table>
 	<tr>
 		<th>呼叫者</th>
@@ -26,5 +27,6 @@
 		</tr>
 	{% endfor %}
 </table>
+
 
 {% endblock %}

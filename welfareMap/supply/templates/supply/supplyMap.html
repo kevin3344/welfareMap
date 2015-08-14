@@ -1,5 +1,24 @@
-{% extends "supply/supplyMain.html" %}
-{% block supply %}
+{% extends "main/main.html" %}
+{% block content %}
+<div id=content2>
+<form method="get">
+    <p>地址：<input type="text" name="address"></p>
+    <p>緊急程度：<select name="urgent">
+    	<option value="">不限</option>
+    	<option value="普通">普通</option>
+    	<option value="困難">困難</option>
+    	<option value="緊急">緊急</option>
+    </select></p> 
+    <p>求救類型：<select name="helpType">
+    	<option value="">不限</option>
+    	<option value="勞力">勞力</option>
+    	<option value="智力">智力</option>
+    	<option value="金錢">金錢</option>
+    </select></p> 
+    <input type=submit value=查詢>
+</form>
+<div class=down>
+<div class=suppyleft>
 	<div style = "display:none">
 	{% for welfares in welfares %}
 		<div class=address>
@@ -22,7 +41,38 @@
 		</div>
 		{% endfor %}
 	</div>
-	<div id=map_canvas style='width:600px; height:600px;'></div>
+	<div id=map_canvas></div>
+
+</div><br>
+
+<div class=suppyright>
+	<table>
+	<tr>
+		<th>呼叫者</th>
+		<th>緊急程度</th>
+		<th>種類</th>
+		<th>內容</th>
+		<th>地址</th>
+		<th>備註</th>
+	</tr>
+	{% for welfare in welfares %}
+		<tr>
+			<td> {{ welfare.user }} </td>
+        	<td> {{ welfare.urgent }} </td>
+        	<td> {{ welfare.helpType }} </td>
+        	<td> {{ welfare.content }} </td>
+        	<td> {{ welfare.address }} </td>
+        	<td> {{ welfare.note }} </td>
+        	<td> <form method=get action={% url 'supply:supplyMap'  %}>
+			  	 <input type=hidden name=id value="{{ welfare.id }}">
+			  	 <button type= submit >查看</button>
+			  	 </form></td>
+		</tr>
+	{% endfor %}
+</table>
+</div>
+</div>
+</div>
 {% endblock %}
 {% block script %}
 
@@ -50,16 +100,21 @@ for (var i=0;i<latitude.length;i++){
        noteStr[i]=note[i].innerHTML;
        idsStr[i]=ids[i].innerHTML;
 }
-console.log(noteStr)
-
+  var centerLat = '{{welfare.lat}}';
+  var centerLng = '{{welfare.lng}}';
+  if (centerLat && centerLng){
+    var center = new google.maps.LatLng(centerLat, centerLng);  
+  }else{
+    var center = new google.maps.LatLng(23.5, 121);  
+  }
   var infowindow = new google.maps.InfoWindow();  
   var geocoder = new google.maps.Geocoder();
-  var center = new google.maps.LatLng(23.5, 121);  
+  
 
 			
   //設定地圖參數
   var mapOptions = {
-      zoom: 8, //初始放大倍數
+      zoom: {{zoom}}, //初始放大倍數
       center: center, //中心點所在位置
       mapTypeId: google.maps.MapTypeId.ROADMAP //正常2D道路模式
   };
@@ -67,17 +122,20 @@ console.log(noteStr)
   var map = new google.maps.Map(
       document.getElementById("map_canvas"), mapOptions);
   //加入標示點(Marker)
-
+  
+  /*
   var marker = new google.maps.Marker({
         position: center, //經緯度
         title: "f", //顯示文字
         map: map, //指定要放置的地圖對象
         icon: 'http://housing.nfu.edu.tw/img/home.png' ,    
         
-  });						
+  });
+  */						
               var infowindow = new google.maps.InfoWindow();																																																																																																																																																																															
             for (i=0; i<=latitude.length; i++) {
 　　      	latlng [i] = new google.maps.LatLng( latitudeStr[i],longitudeStr[i]);
+
 　　      	var marker = new google.maps.Marker({
                    position: latlng[i], //經緯度
                    title: "", //顯示文字

@@ -1,5 +1,7 @@
 {% extends 'main/main.html' %}
 {% block content %}
+<div id="content">
+
 {% if userForm %}
   <form method=post action={% url 'member:register' %}>
     {% csrf_token %}
@@ -10,5 +12,6 @@
   </form>
 {% endif %}
 
+</div>
 
 {% endblock %}
