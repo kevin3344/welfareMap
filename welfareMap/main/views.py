@@ -16,4 +16,4 @@ def main(request):
         user.is_superuser = True
         user.save()
         messages.success(request, '管理者新增成功')
-    return render(request, 'main/main.html')
+    return render(request, 'about/idea.html')

@@ -6,10 +6,11 @@
 </head>
 <body>
 <div id="header"><div id="header2">
-          <div id="logo">
-              <h1><a href="/">公益地圖</a></h1>
-              <p id="subtitle">welfar map </p>
-          </div> 
+	<div id="logo">
+		<img src="{% static 'main/images/logo.png' %}" alt="logo" id=logoImg>
+        <h1><a href="/">公益地圖</a></h1>
+        <p id="subtitle">welfar map </p>
+	</div> 
 	<div id="menu">
 				<ul>
 		    <li><a href={% url 'about:about' %}>關於公益地圖</a></li>

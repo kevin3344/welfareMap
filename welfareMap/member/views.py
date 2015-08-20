@@ -32,7 +32,7 @@ def manager(request):
     user.set_password(user.password)
     user.save()
     messages.success(request, '修改成功,請重新登入')
-    return redirect('/')
+    return redirect('about/idea.html')
 
 def register(request):
     if request.method=='GET':
