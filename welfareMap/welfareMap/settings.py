@@ -44,6 +44,7 @@ INSTALLED_APPS = (
     'member',
     'welfare',
     'supply',
+    'webService',
 )
 
 MIDDLEWARE_CLASSES = (
