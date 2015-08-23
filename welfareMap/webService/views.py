@@ -26,11 +26,11 @@ def register(request):
     
 @csrf_exempt
 def getUser(request):
-    if request.method=='post':
+    if request.method=='POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(username=username, password=password)
-        userDic = {'username':user.username, 'password':password,
+        userDic = {'username':username, 'password':password,
                    'name':user.first_name}
     return  JsonResponse(userDic)
     
